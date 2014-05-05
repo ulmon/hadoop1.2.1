@@ -1243,7 +1243,7 @@ class ReduceTask extends Task {
       	private Socket m_copySocket;
       // basic/unit connection timeout (in milliseconds)
 	private final static String CONTROLLERIP = "10.0.1.69";
-	private final static int CONTROLLERPORT  = 4000;
+	private final static int CONTROLLERPORT  = 3455;
 	private DataOutputStream m_out = null;
       private final static int UNIT_CONNECT_TIMEOUT = 30 * 1000;
       // default read timeout (in milliseconds)
@@ -1266,8 +1266,14 @@ class ReduceTask extends Task {
         setName("MapOutputCopier " + reduceTask.getTaskID() + "." + id);
         LOG.debug(getName() + " created");
         this.reporter = reporter;
-	m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
-	m_out = new DataOutputStream(m_copySocket.getOutputStream());
+		try
+		{	
+			m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
+			m_out = new DataOutputStream(m_copySocket.getOutputStream());
+		}
+		catch(Exception e)
+		{
+		}
         this.jobTokenSecret = jobTokenSecret;
  
         shuffleConnectionTimeout =
@@ -1334,7 +1340,16 @@ class ReduceTask extends Task {
               }
               loc = scheduledCopies.remove(0);
             }
-	    m_out.writeBytes("COPY: " + loc.getHost());
+			try{
+
+	    		m_out.writeBytes("COPY: " + loc.getHost());
+
+			}
+			catch(NullPointerException e)
+			{
+				//right now don't do anything, fix later
+				//FIX FIX FIX FIX
+			}
             CopyOutputErrorType error = CopyOutputErrorType.OTHER_ERROR;
             readError = false;
             try {
@@ -1354,7 +1369,13 @@ class ReduceTask extends Task {
               // Reset 
               size = -1;
             } finally {
-	      m_out.writeBytes("DONE: " + loc.getHost());
+				try{
+	      			m_out.writeBytes("DONE: " + loc.getHost());
+				}
+				catch(NullPointerException e)
+				{
+					//do nothing fix fix fix fix
+				}
               shuffleClientMetrics.threadFree();
               finish(size, error);
             }
