@@ -1268,8 +1268,8 @@ class ReduceTask extends Task {
         this.reporter = reporter;
 		try
 		{	
-			m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
-			m_out = new DataOutputStream(m_copySocket.getOutputStream());
+//			m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
+//			m_out = new DataOutputStream(m_copySocket.getOutputStream());
 		}
 		catch(Exception e)
 		{
@@ -1342,7 +1342,7 @@ class ReduceTask extends Task {
             }
 			try{
 
-	    		m_out.writeBytes("COPY: " + loc.getHost());
+//	    		m_out.writeBytes("COPY: " + loc.getHost());
 
 			}
 			catch(NullPointerException e)
@@ -1370,7 +1370,7 @@ class ReduceTask extends Task {
               size = -1;
             } finally {
 				try{
-	      			m_out.writeBytes("DONE: " + loc.getHost());
+//	      			m_out.writeBytes("DONE: " + loc.getHost());
 				}
 				catch(NullPointerException e)
 				{
