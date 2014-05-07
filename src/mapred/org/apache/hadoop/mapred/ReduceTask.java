@@ -1266,14 +1266,14 @@ class ReduceTask extends Task {
         setName("MapOutputCopier " + reduceTask.getTaskID() + "." + id);
         LOG.debug(getName() + " created");
         this.reporter = reporter;
-		try
-		{	
+//		try
+//		{	
 //			m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
 //			m_out = new DataOutputStream(m_copySocket.getOutputStream());
-		}
-		catch(Exception e)
-		{
-		}
+//		}
+//		catch(Exception e)
+//		{
+//		}
         this.jobTokenSecret = jobTokenSecret;
  
         shuffleConnectionTimeout =
@@ -1340,16 +1340,16 @@ class ReduceTask extends Task {
               }
               loc = scheduledCopies.remove(0);
             }
-			try{
-
+//			try{
+//
 //	    		m_out.writeBytes("COPY: " + loc.getHost());
-
-			}
-			catch(NullPointerException e)
-			{
-				//right now don't do anything, fix later
-				//FIX FIX FIX FIX
-			}
+//
+//			}
+//			catch(NullPointerException e)
+//			{
+//				//right now don't do anything, fix later
+//				//FIX FIX FIX FIX
+//			}
             CopyOutputErrorType error = CopyOutputErrorType.OTHER_ERROR;
             readError = false;
             try {
@@ -1369,13 +1369,13 @@ class ReduceTask extends Task {
               // Reset 
               size = -1;
             } finally {
-				try{
+//				try{
 //	      			m_out.writeBytes("DONE: " + loc.getHost());
-				}
-				catch(NullPointerException e)
-				{
-					//do nothing fix fix fix fix
-				}
+//				}
+//				catch(NullPointerException e)
+//				{
+//					//do nothing fix fix fix fix
+//				}
               shuffleClientMetrics.threadFree();
               finish(size, error);
             }
