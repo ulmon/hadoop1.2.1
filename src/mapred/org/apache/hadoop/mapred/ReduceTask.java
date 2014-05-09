@@ -1266,14 +1266,15 @@ class ReduceTask extends Task {
         setName("MapOutputCopier " + reduceTask.getTaskID() + "." + id);
         LOG.debug(getName() + " created");
         this.reporter = reporter;
-//		try
-//		{	
-//			m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
-//			m_out = new DataOutputStream(m_copySocket.getOutputStream());
-//		}
-//		catch(Exception e)
-//		{
-//		}
+		try
+		{	
+			m_copySocket = new Socket(CONTROLLERIP, CONTROLLERPORT);
+			m_out = new DataOutputStream(m_copySocket.getOutputStream());
+		}
+		catch(Exception e)
+		{
+			System.out.println("FAILED TO CONNECT");
+		}
         this.jobTokenSecret = jobTokenSecret;
  
         shuffleConnectionTimeout =
@@ -1340,16 +1341,17 @@ class ReduceTask extends Task {
               }
               loc = scheduledCopies.remove(0);
             }
-//			try{
-//
-//	    		m_out.writeBytes("COPY: " + loc.getHost());
-//
-//			}
-//			catch(NullPointerException e)
-//			{
-//				//right now don't do anything, fix later
-//				//FIX FIX FIX FIX
-//			}
+			try{
+
+	    		m_out.writeBytes("COPY: " + loc.getHost() + "/n");
+
+			}
+			catch(NullPointerException e)
+			{
+				System.out.println("ERROR ON SEND COPY MSG");
+				//right now don't do anything, fix later
+				//FIX FIX FIX FIX
+			}
             CopyOutputErrorType error = CopyOutputErrorType.OTHER_ERROR;
             readError = false;
             try {
@@ -1369,13 +1371,14 @@ class ReduceTask extends Task {
               // Reset 
               size = -1;
             } finally {
-//				try{
-//	      			m_out.writeBytes("DONE: " + loc.getHost());
-//				}
-//				catch(NullPointerException e)
-//				{
-//					//do nothing fix fix fix fix
-//				}
+				try{
+	      			m_out.writeBytes("DONE: " + loc.getHost() + "\n");
+				}
+				catch(NullPointerException e)
+				{
+					System.out.println("ERROR ON SENDING DONE");
+					//do nothing fix fix fix fix
+				}
               shuffleClientMetrics.threadFree();
               finish(size, error);
             }
