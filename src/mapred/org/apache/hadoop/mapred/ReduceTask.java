@@ -1243,7 +1243,7 @@ class ReduceTask extends Task {
       	private Socket m_copySocket;
       // basic/unit connection timeout (in milliseconds)
 	private final static String CONTROLLERIP = "10.0.1.69";
-	private final static int CONTROLLERPORT  = 3455;
+	private final static int CONTROLLERPORT  = 5555;
 	private DataOutputStream m_out = null;
       private final static int UNIT_CONNECT_TIMEOUT = 30 * 1000;
       // default read timeout (in milliseconds)
