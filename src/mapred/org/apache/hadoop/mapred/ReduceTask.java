@@ -1343,7 +1343,7 @@ class ReduceTask extends Task {
             }
 			try{
 
-	    		m_out.writeBytes("COPY: " + loc.getHost() + "/n");
+	    		m_out.writeBytes("COPY: " + loc.getHost() + "\n");
 
 			}
 			catch(NullPointerException e)
